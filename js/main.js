@@ -147,9 +147,7 @@ function selecarquera() {
 }
 
 function dropObjetosArray(Personaje) {
-    Personaje.objetos[Math.floor(Math.random() * Personaje.objetos.length)];
-    return Personaje.objetos
-    
+    return Personaje.objetos[Math.floor(Math.random() * Personaje.objetos.length)];
 }
 
 function enemigoDecision(Monstruos, Personaje) {
