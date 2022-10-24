@@ -1,0 +1,44 @@
+.body{
+    background-color: black;
+}
+.consola{
+    margin: auto;
+    display: flex;
+    flex-wrap: nowrap;
+    justify-content: space-evenly;
+    align-items: center;
+    z-index: -1;
+}
+.div{
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    align-content: space-around;
+    align-items: center;
+    margin-top: 50px;
+}
+.divImg{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.divTexto{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: aliceblue;
+}
+.img1{
+    margin: auto;
+    max-height: 140px;
+    position:absolute;
+    z-index: 1;
+}
+.parrafo{
+    color: antiquewhite;
+    font-size: larger;
+}
+
+/* 
+falta agregar animaciones que van acompañadas de la funcion de los botones, es la idea + el fondo de pantalla
+*/
