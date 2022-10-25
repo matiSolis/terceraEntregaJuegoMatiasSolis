@@ -110,6 +110,9 @@ Cientos de años pasaron y una gran amenaza se fue haciendo más fuerte en el co
 //VARIABLES
 const vidaPj = document.getElementById('vidaPj');
 const vidaMonstruo = document.getElementById('vidaMonstruo');
+/* let btnmago;
+let btnguerrero;
+let btnarquera; */
 let enemigo;
 let objeto;
 let indicador;
@@ -124,30 +127,33 @@ const ataque3 = AtaquePj[2];
 //=====================================================================================================
 //FUNCIONES
 function selecMago() {
-    let seleccionPersonaje = mago;
+    seleccionPersonaje = mago;
     let pjJSON = JSON.stringify(mago);
     localStorage.setItem("Personaje seleccionado", pjJSON);
+    console.log(mago);
     return seleccionPersonaje;
 }
 
 function selecguerrero() {
-    let seleccionPersonaje = guerrero;
+    seleccionPersonaje = guerrero;
     let pjJSON = JSON.stringify(guerrero);
     localStorage.setItem("Personaje seleccionado", pjJSON);
     localStorage.setItem("Personaje seleccionado", pjJSON);
+    console.log(guerrero);
     return seleccionPersonaje;
 }
 
 function selecarquera() {
-    let seleccionPersonaje = arquera;
+    seleccionPersonaje = arquera;
     let pjJSON = JSON.stringify(arquera);
     localStorage.setItem("Personaje seleccionado", pjJSON);
     localStorage.setItem("Personaje seleccionado", pjJSON);
-    return seleccionPersonaje;
-}
+    console.log(arquera);
+    }
 
 function dropObjetosArray(seleccionPersonaje) {
-    return seleccionPersonaje.objetos[Math.floor(Math.random() * seleccionPersonaje.objetos.length)];
+    seleccionPersonaje.objetos[Math.floor(Math.random() * seleccionPersonaje.objetos.length)];
+    return seleccionPersonaje.objetos
 }
 
 function enemigoDecision(Monstruos, Personaje) {
@@ -222,119 +228,54 @@ function ataque03(ataque3) {
     }
     enemigoDecision(Monstruos, Personaje);
 }
+function juego(seleccionPersonaje) {
+    for (let i = 0; i < monstruosArray.length; i++) {
+        let enemigo = monstruosArray[i];
+        console.log(enemigo);
+        divCajaTexto.innerHTML = `Comienzas a adentrarte en la montaña mientras bajas un empinado sendero. Oyes unos horribles gruñidos. Un ${enemigo.tipo} aparece corriendo hacia ti, piensa rapido joven ${seleccionPersonaje.tipo}!`;
+        /*         
+        while (seleccionPersonaje.vida > 0 && enemigo.vida > 0) {
+                    ===========??================
+                    ACA QUIERO IMPLEMENTAR LOS BOTONES DE ATAQUE, PERO NO SE COMO HACERLO
+                    PROBE DE VARIAS MANERAS Y NO SE ME OCURRIO COMO.
+                    LA IDEA ES IR PRECIONANDO BOTONES HASTA QUE SE CUMPLA LA CONDICION DEL WHILE
+                    ANTES LO HACIA MEDIANTE PROMPT Y FUNCIONABA PERFECTA LA FUNCION
+                    CON LA IMPLEMENTACION DE LOS BOTONES SE ME COMPLICO
+                } 
+        */
+    }
+    if (seleccionPersonaje.vida <= 0) {
+        divCajaTexto.innerHTML = "Tu camino ha llegado al fin. La muerte te ha alcanzado.";
+    } else {
+        divCajaTexto.innerHTML = "Has vencido a tu enemigo. Descansa un poco, nuevos peligros te esperan";
+        objeto = dropObjetosArray(seleccionPersonaje);
+        seleccionPersonaje.inventario.push(objeto);
+        const last = seleccionPersonaje.inventario[seleccionPersonaje.inventario.length - 1];
+        console.log(last);
+        seleccionPersonaje.vida += last.vida;
+        seleccionPersonaje.daño += last.daño;
+    }
+}
 
 //=====================================================================================================
 //BOTONES
-let btnmago;
-let btnguerrero;
-let btnarquera;
-/* const btnmago = document.getElementById('mago').addEventListener("click", selecMago);
+const btnmago = document.getElementById('mago').addEventListener("click", selecMago);
 const btnguerrero = document.getElementById('guerrero').addEventListener("click", selecguerrero);
-const btnarquera = document.getElementById('arquera').addEventListener("click", selecarquera); */
+const btnarquera = document.getElementById('arquera').addEventListener("click", selecarquera);
 const btnAtaque1 = document.getElementById('btnAtaque1').addEventListener("click", ataque01);
 const btnAtaque2 = document.getElementById('btnAtaque2').addEventListener("click", ataque02);
 const btnAtaque3 = document.getElementById('btnAtaque3').addEventListener("click", ataque03);
 const btnPocima = document.getElementById('btnPocima').addEventListener("click", pocima);
-
-function juego(seleccionPersonaje) {
-    btnmago = document.getElementById('mago').addEventListener("click", selecMago);
-    btnarquera = document.getElementById('arquera').addEventListener("click", selecarquera);
-    btnguerrero = document.getElementById('guerrero').addEventListener("click", selecguerrero);
-    if (seleccionPersonaje === mago) {
-        for (let i = 0; i < monstruosArray.length; i++) {
-            let enemigo = monstruosArray[i];
-            console.log(enemigo);
-            divCajaTexto.innerHTML = `Comienzas a adentrarte en la montaña mientras bajas un empinado sendero. Oyes unos horribles gruñidos. Un ${enemigo.tipo} aparece corriendo hacia ti, piensa rapido joven ${seleccionPersonaje.tipo}!`;
-            /*         
-            while (seleccionPersonaje.vida > 0 && enemigo.vida > 0) {
-                        ===========??================
-                        ACA QUIERO IMPLEMENTAR LOS BOTONES DE ATAQUE, PERO NO SE COMO HACERLO
-                        PROBE DE VARIAS MANERAS Y NO SE ME OCURRIO COMO.
-                        LA IDEA ES IR PRECIONANDO BOTONES HASTA QUE SE CUMPLA LA CONDICION DEL WHILE
-                        ANTES LO HACIA MEDIANTE PROMPT Y FUNCIONABA PERFECTA LA FUNCION
-                        CON LA IMPLEMENTACION DE LOS BOTONES SE ME COMPLICO
-                    } 
-            */
-        }
-        if (seleccionPersonaje.vida <= 0) {
-            divCajaTexto.innerHTML = "Tu camino ha llegado al fin. La muerte te ha alcanzado.";
-        } else {
-            divCajaTexto.innerHTML = "Has vencido a tu enemigo. Descansa un poco, nuevos peligros te esperan";
-            let objeto = dropObjetosArray(seleccionPersonaje);
-            seleccionPersonaje.inventario.push(objeto);
-            const last = seleccionPersonaje.inventario[seleccionPersonaje.inventario.length - 1];
-            console.log(last);
-            seleccionPersonaje.vida += last.vida;
-            seleccionPersonaje.daño += last.daño;
-        }
-    }
-    else if (seleccionPersonaje===guerrero) {
-        for (let i = 0; i < monstruosArray.length; i++) {
-            let enemigo = monstruosArray[i];
-            console.log(enemigo);
-            divCajaTexto.innerHTML = `Comienzas a adentrarte en la montaña mientras bajas un empinado sendero. Oyes unos horribles gruñidos. Un ${enemigo.tipo} aparece corriendo hacia ti, piensa rapido joven ${seleccionPersonaje.tipo}!`;
-            /*         
-            while (seleccionPersonaje.vida > 0 && enemigo.vida > 0) {
-                        ===========??================
-                        ACA QUIERO IMPLEMENTAR LOS BOTONES DE ATAQUE, PERO NO SE COMO HACERLO
-                        PROBE DE VARIAS MANERAS Y NO SE ME OCURRIO COMO.
-                        LA IDEA ES IR PRECIONANDO BOTONES HASTA QUE SE CUMPLA LA CONDICION DEL WHILE
-                        ANTES LO HACIA MEDIANTE PROMPT Y FUNCIONABA PERFECTA LA FUNCION
-                        CON LA IMPLEMENTACION DE LOS BOTONES SE ME COMPLICO
-                    } 
-            */
-        }
-        if (seleccionPersonaje.vida <= 0) {
-            divCajaTexto.innerHTML = "Tu camino ha llegado al fin. La muerte te ha alcanzado.";
-        } else {
-            divCajaTexto.innerHTML = "Has vencido a tu enemigo. Descansa un poco, nuevos peligros te esperan";
-            let objeto = dropObjetosArray(seleccionPersonaje);
-            seleccionPersonaje.inventario.push(objeto);
-            const last = seleccionPersonaje.inventario[seleccionPersonaje.inventario.length - 1];
-            console.log(last);
-            seleccionPersonaje.vida += last.vida;
-            seleccionPersonaje.daño += last.daño;
-        }
-    }else{
-        for (let i = 0; i < monstruosArray.length; i++) {
-            let enemigo = monstruosArray[i];
-            console.log(enemigo);
-            divCajaTexto.innerHTML = `Comienzas a adentrarte en la montaña mientras bajas un empinado sendero. Oyes unos horribles gruñidos. Un ${enemigo.tipo} aparece corriendo hacia ti, piensa rapido joven ${seleccionPersonaje.tipo}!`;
-            /*         
-            while (seleccionPersonaje.vida > 0 && enemigo.vida > 0) {
-                        ===========??================
-                        ACA QUIERO IMPLEMENTAR LOS BOTONES DE ATAQUE, PERO NO SE COMO HACERLO
-                        PROBE DE VARIAS MANERAS Y NO SE ME OCURRIO COMO.
-                        LA IDEA ES IR PRECIONANDO BOTONES HASTA QUE SE CUMPLA LA CONDICION DEL WHILE
-                        ANTES LO HACIA MEDIANTE PROMPT Y FUNCIONABA PERFECTA LA FUNCION
-                        CON LA IMPLEMENTACION DE LOS BOTONES SE ME COMPLICO
-                    } 
-            */
-        }
-        if (seleccionPersonaje.vida <= 0) {
-            divCajaTexto.innerHTML = "Tu camino ha llegado al fin. La muerte te ha alcanzado.";
-        } else {
-            divCajaTexto.innerHTML = "Has vencido a tu enemigo. Descansa un poco, nuevos peligros te esperan";
-            let objeto = dropObjetosArray(seleccionPersonaje);
-            seleccionPersonaje.inventario.push(objeto);
-            const last = seleccionPersonaje.inventario[seleccionPersonaje.inventario.length - 1];
-            console.log(last);
-            seleccionPersonaje.vida += last.vida;
-            seleccionPersonaje.daño += last.daño;
-        }
-    }
-}
-
-
+const btnComenzar = document.getElementById('btnComenzar').addEventListener("click",juego);
 
 //=====================================================================================================
 //JUEGO
 divCajaTexto.innerHTML = "Te paras frente a la entrada de la montaña. Dejas de oir el canto de las aves, una ultima brisa acaricia tu cara. Te das vuelta para ver por ultima vez la luz del sol y pronuncias el hechizo que abre el paso. Enciendes tu antorcha y te adentras a lo desconocido. Lo que suceda a continuacion depende solo de ti y de las decisiones que tomes. Mantente alerta, la muerte acecha en la oscuridad."
 
-if (Personaje === mago) {
+/* if (Personaje === mago) {
     juego(mago);
 } else if (Personaje === guerrero) {
     juego(guerrero);
 } else {
     juego(arquera);
-}
+} */
